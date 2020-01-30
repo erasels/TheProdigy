@@ -1,0 +1,10 @@
+{
+  "theProdigy:FullFlame": {
+    "NAME": "Full Flame",
+    "MOVES": [
+    ],
+    "DIALOG": [
+      "On death, deals damage equal to its max HP to ALL enemies."
+    ]
+  }
+}

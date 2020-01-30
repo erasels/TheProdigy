@@ -1,0 +1,64 @@
+[
+  {
+    "PROPER_NAME": "Burst",
+    "NAMES": [
+      "burst",
+      "burst:"
+    ],
+    "DESCRIPTION": "This effect triggers if the last card played was an #yAttack [REMOVE_SPACE]."
+  },
+  {
+    "PROPER_NAME": "Remnant",
+    "NAMES": [
+      "remnant",
+      "remnant:"
+    ],
+    "DESCRIPTION": "This effect triggers if an #yInvoke card was played this turn."
+  },
+  {
+    "PROPER_NAME": "Barrier",
+    "NAMES": [
+      "barrier",
+      "barriers"
+    ],
+    "DESCRIPTION": "Cards which have \"barrier\" in their name."
+  },
+  {
+    "PROPER_NAME": "Needle",
+    "NAMES": [
+      "needle",
+      "needles"
+    ],
+    "DESCRIPTION": "Cards which have \"needle\" in their name."
+  },
+  {
+    "PROPER_NAME": "Invoke",
+    "NAMES": [
+      "invoke"
+    ],
+    "DESCRIPTION": "Cards that have their cost hidden and randomized between 0-3 whenever they enter your hand."
+  },
+  {
+    "PROPER_NAME": "Yin-Yang Orb",
+    "NAMES": [
+      "yin-yang"
+    ],
+    "DESCRIPTION": "Orb: Increases attack damage, becomes stronger at the start of every turn. NL Breaks too much damage is taken."
+  },
+  {
+    "PROPER_NAME": "Channel",
+    "NAMES": [
+      "altchannel"
+    ],
+    "DESCRIPTION": "Put the orb into a new slot. If you've reached max capacity (6), no new orb will be channeled."
+  },
+  {
+    "PROPER_NAME": "Aligned",
+    "NAMES": [
+      "aligned",
+      "align",
+      "aligned:"
+    ],
+    "DESCRIPTION": "This effect is repeated for each currently channeled #yYin-Yang #yOrb."
+  }
+]

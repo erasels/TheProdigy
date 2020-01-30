@@ -1,0 +1,10 @@
+{
+  "theProdigy:PurificationRod": {
+    "NAME": "Purification Rod",
+    "FLAVOR": "A \"correctional tool\" used to correct the behavior of unbehaved creatures.",
+    "DESCRIPTIONS": [
+      "The first time you attack each enemy, apply #b",
+      " #yWeak and #yVulnerable."
+    ]
+  }
+}

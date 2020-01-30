@@ -1,0 +1,26 @@
+{
+  "theProdigy:ExhaustionPanel": {
+    "TEXT": [
+      "Exhaustion",
+      "When you would die, revive with half HP, clear your debuffs and gain Exhaustion instead. NL You lose #b1 HP per #yExhaustion whenever you play a card. NL You give up if #yExhaustion would reach #b5."
+    ]
+  },
+  "theProdigy:SpeedModePrepText": {
+    "TEXT": [
+      "Begins in: "
+    ]
+  },
+  "theProdigy:ChooseCardsFromPilesAction": {
+    "TEXT": [
+      "Choose ",
+      " card(s)."
+    ]
+  },
+  "theProdigy:Mana": {
+    "TEXT": [
+      "Mana Points (MP)",
+      "A resource for some of your cards.",
+      "Fully restore your MP."
+    ]
+  }
+}

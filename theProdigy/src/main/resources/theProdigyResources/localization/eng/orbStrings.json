@@ -1,0 +1,11 @@
+{
+  "theProdigy:YinYangOrb": {
+    "NAME": "Yin-Yang Orb",
+    "DESCRIPTION": [
+      "#yPassive: Increase all attack damage by #b",
+      ". At the start of turn, gain #b",
+      " charge. NL Breaks after you take #r",
+      " unblocked attack damage. NL NL #yEvoke: ..."
+    ]
+  }
+}

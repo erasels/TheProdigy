@@ -1,0 +1,130 @@
+{
+  "theProdigy:RepulseBarrier": {
+    "NAME": "Repulse",
+    "DESCRIPTIONS": [
+      "When attacked, deals #b",
+      " damage back."
+    ]
+  },
+  "theProdigy:Ignite": {
+    "NAME": "Ignite",
+    "DESCRIPTIONS": [
+      "At the end of its turn, takes #b",
+      " damage, then reduce #yIgnite by #bhalf its amount (rounded up).",
+      "At the end of the monsters' turn, take #b"
+    ]
+  },
+  "theProdigy:RecklessAttack": {
+    "NAME": "Reckless Attack",
+    "DESCRIPTIONS": [
+      "The next card you play costs #b0 [REMOVE_SPACE]. Lose HP equal to #b",
+      " times its original energy cost instead."
+    ]
+  },
+  "theProdigy:Mirage": {
+    "NAME": "Bearing Flames",
+    "DESCRIPTIONS": [
+      "Until the end of your #b",
+      " next turns,",
+      " [REMOVE_SPACE] turn,",
+      " if you would lose HP from a card, ",
+      "a random #yFlame",
+      " loses it instead."
+    ]
+  },
+  "theProdigy:Updraft": {
+    "NAME": "Updraft",
+    "DESCRIPTIONS": [
+      "When you would die, heal HP equal to #b",
+      " times the amount of cards with a HP cost in your deck."
+    ]
+  },
+  "theProdigy:Cursed": {
+    "NAME": "Cursed",
+    "DESCRIPTIONS": [
+      "On death, applies its debuffs to all other monsters."
+    ]
+  },
+  "theProdigy:BrittleBarrier": {
+    "NAME": "Brittle Barrier",
+    "DESCRIPTIONS": [
+      "When attacked, apply #b",
+      " #yWeak [REMOVE_SPACE]."
+    ]
+  },
+  "theProdigy:BlessingOfProtection": {
+    "NAME": "Protection Blessing",
+    "DESCRIPTIONS": [
+      "Gain #b",
+      "% more #yBlock from cards."
+    ]
+  },
+  "theProdigy:DuplexBoundary": {
+    "NAME": "Duplex Boundary",
+    "DESCRIPTIONS": [
+      "Take #b",
+      "% less damage."
+    ]
+  },
+  "theProdigy:AnachronicBarrier": {
+    "NAME": "Anachronic Barrier",
+    "DESCRIPTIONS": [
+      "Delay all incoming attack damage to the end of the specified round. NL Currently: #b",
+      " damage is stored."
+    ]
+  },
+  "theProdigy:SlaveSeals": {
+    "NAME": "Slave Seals",
+    "DESCRIPTIONS": [
+      "Whenever an enemy takes attack damage, #b",
+      " other ",
+      "enemy",
+      "enemies",
+      " takes that much damage as well."
+    ]
+  },
+  "theProdigy:Limit": {
+    "NAME": "Self-Imposed Limit",
+    "DESCRIPTIONS": [
+      "Cannot gain #yIntagible for the rest of combat."
+    ]
+  },
+  "theProdigy:ErrantFaith": {
+    "NAME": "Errant Faith",
+    "DESCRIPTIONS": [
+      "Gain #b",
+      " [E] after playing an #yInvoke card."
+    ]
+  },
+  "theProdigy:UnstableBarrier": {
+    "NAME": "Unstable Barrier",
+    "DESCRIPTIONS": [
+      "If your #yBlock is broken, deal #b",
+      " damage to ALL enemies."
+    ]
+  },
+  "theProdigy:ScourgedEarth": {
+    "NAME": "Scourged Earth",
+    "DESCRIPTIONS": [
+      "At the start of your turn, deal #b",
+      " damage to ALL enemies."
+    ]
+  },
+  "theProdigy:Trifecta": {
+    "NAME": "Trifecta",
+    "DESCRIPTIONS": [
+      "The next #b",
+      " card is ",
+      " cards are ",
+      "played #b2 additional times."
+    ]
+  },
+  "theProdigy:WheelOfMisfortune": {
+    "NAME": "Wheel of Misfortune",
+    "DESCRIPTIONS": [
+      "Reflects the next #b",
+      " incoming debuffs back to the sender. NL Applies #b",
+      " #yPoison if the debuff only works on players."
+    ]
+  }
+}
