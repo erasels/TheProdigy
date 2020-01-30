@@ -1,6 +1,8 @@
 package theProdigy.cards.abstracts;
 
 import basemod.abstracts.CustomCard;
+import com.badlogic.gdx.graphics.Color;
+import com.evacipated.cardcrawl.mod.stslib.patches.HitboxRightClick;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
@@ -16,10 +18,10 @@ import theProdigy.util.UC;
 import static theProdigy.TheProdigy.makeID;
 
 public abstract class ProdigyCard extends CustomCard {
+    protected static final Color EMPOWER_BORDER_GLOW_COLOR = Color.VIOLET.cpy();
+
     protected CardStrings cardStrings;
     protected String img;
-
-    public static final int INVOKE_MAX_COST = 3;
 
     protected boolean upgradesDescription;
 
@@ -53,6 +55,7 @@ public abstract class ProdigyCard extends CustomCard {
     public int showNumber;
     public boolean isShowNumberModified;
 
+    public boolean isEmpowered;
 
     public ProdigyCard(CardInfo cardInfo, boolean upgradesDescription) {
         this(ProdigyCharacter.Enums.COLOR_PRODIGY, cardInfo.cardName, cardInfo.cardCost, cardInfo.cardType, cardInfo.cardTarget, cardInfo.cardRarity, upgradesDescription);
@@ -91,7 +94,10 @@ public abstract class ProdigyCard extends CustomCard {
         upgradeRetain = false;
         upgradeEthereal = false;
 
-        if(cardName.toLowerCase().contains("strike")) {
+        //TODO: Add mana cost stuff
+        isEmpowered = false;
+
+        if (cardName.toLowerCase().contains("strike")) {
             tags.add(CardTags.STRIKE);
         }
 
@@ -157,7 +163,7 @@ public abstract class ProdigyCard extends CustomCard {
     }
 
     public void setBurst(boolean upgradeToBurst) {
-        if(upgradeToBurst) {
+        if (upgradeToBurst) {
             upgradeBurst = true;
         } else {
             tags.add(CardENUMs.BURST);
@@ -165,7 +171,7 @@ public abstract class ProdigyCard extends CustomCard {
     }
 
     public void setRetain(boolean upgradeToRetain) {
-        if(upgradeToRetain) {
+        if (upgradeToRetain) {
             upgradeRetain = true;
         } else {
             selfRetain = true;
@@ -173,7 +179,7 @@ public abstract class ProdigyCard extends CustomCard {
     }
 
     public void setEthereal(boolean upgradeToEthereal) {
-        if(upgradeToEthereal) {
+        if (upgradeToEthereal) {
             upgradeEthereal = true;
         } else {
             isEthereal = true;
@@ -181,7 +187,7 @@ public abstract class ProdigyCard extends CustomCard {
     }
 
     public void setMultiDamage(boolean upgradeMulti) {
-        if(upgradeMulti) {
+        if (upgradeMulti) {
             upgradeMultiDmg = true;
         } else {
             this.isMultiDamage = true;
@@ -215,7 +221,7 @@ public abstract class ProdigyCard extends CustomCard {
             case "basic":
                 return CardRarity.BASIC;
             default:
-                if(Settings.isDebug) {
+                if (Settings.isDebug) {
                     TheProdigy.logger.info("Automatic Card rarity resulted in SPECIAL, input: " + directParent);
                 }
                 return CardRarity.SPECIAL;
@@ -297,19 +303,19 @@ public abstract class ProdigyCard extends CustomCard {
             if (baseInnate ^ upgInnate) //different
                 this.isInnate = upgInnate;
 
-            if(upgradeBurst) {
+            if (upgradeBurst) {
                 tags.add(CardENUMs.BURST);
             }
 
-            if(upgradeRetain) {
+            if (upgradeRetain) {
                 selfRetain = true;
             }
 
-            if(upgradeEthereal) {
+            if (upgradeEthereal) {
                 isEthereal = true;
             }
 
-            if(upgradeMultiDmg) {
+            if (upgradeMultiDmg) {
                 this.isMultiDamage = true;
             }
 
@@ -319,9 +325,11 @@ public abstract class ProdigyCard extends CustomCard {
 
     @Override
     public void triggerOnGlowCheck() {
-        if(CardCrawlGame.isInARun()) {
+        if (CardCrawlGame.isInARun()) {
             if ((this.hasTag(CardENUMs.BURST) && UC.anonymousCheckBurst())) {
                 glowColor = GOLD_BORDER_GLOW_COLOR;
+            } else if (/*Mana cost check &&*/ isEmpowered) {
+                glowColor = EMPOWER_BORDER_GLOW_COLOR;
             } else {
                 glowColor = BLUE_BORDER_GLOW_COLOR;
             }
@@ -336,7 +344,25 @@ public abstract class ProdigyCard extends CustomCard {
 
     @Override
     public void update() {
+        clickUpdate();
         super.update();
+    }
+
+    public void clickUpdate() {
+        if (HitboxRightClick.rightClicked.get(this.hb)) {
+            onRightClick();
+        }
+    }
+
+    public void onRightClick() {
+        if(isEmpowered) {
+            isEmpowered = false;
+        } else {
+            //TODO: Add enough mana check
+            isEmpowered = true;
+            this.superFlash(Color.ROYAL.cpy());
+        }
+        UC.p().hand.glowCheck();
     }
 
     @Override
@@ -358,6 +384,7 @@ public abstract class ProdigyCard extends CustomCard {
     private void applyPowersToMN2() {
         this.isMagicNumber2Modified = magicNumber2 != baseMagicNumber2;
     }
+
     private void applyPowersToSN() {
         this.isShowNumberModified = showNumber != baseShowNumber;
     }

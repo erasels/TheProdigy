@@ -20,6 +20,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import theProdigy.actions.utility.DamageAllAction;
+import theProdigy.cards.abstracts.ProdigyCard;
 import theProdigy.patches.combat.CardFieldMechanicsPatches;
 import theProdigy.vfx.general.RunAnimationEffect;
 
@@ -43,6 +44,10 @@ public class UC {
             incrementTurnBurstAmount();
         }
         return tmp;
+    }
+
+    public static boolean isEmpowered(AbstractCard c) {
+        return c instanceof ProdigyCard && ((ProdigyCard)c).isEmpowered;
     }
 
     public static boolean anonymousCheckBurst() {
