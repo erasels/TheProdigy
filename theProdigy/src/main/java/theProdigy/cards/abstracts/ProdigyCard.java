@@ -2,18 +2,27 @@ package theProdigy.cards.abstracts;
 
 import basemod.abstracts.CustomCard;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.mod.stslib.patches.HitboxRightClick;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.CardStrings;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import theProdigy.TheProdigy;
 import theProdigy.characters.ProdigyCharacter;
 import theProdigy.patches.cards.CardENUMs;
 import theProdigy.util.CardInfo;
+import theProdigy.util.ManaHelper;
 import theProdigy.util.TextureLoader;
 import theProdigy.util.UC;
+
+import java.lang.reflect.Field;
 
 import static theProdigy.TheProdigy.makeID;
 
@@ -37,6 +46,10 @@ public abstract class ProdigyCard extends CustomCard {
     protected int blockUpgrade;
     protected int magicUpgrade;
 
+    protected boolean upgradedMPCost;
+    protected boolean upgradeMPCost;
+    protected int mpCostUpgrade;
+
     protected boolean baseExhaust;
     protected boolean upgExhaust;
     protected boolean baseInnate;
@@ -56,12 +69,6 @@ public abstract class ProdigyCard extends CustomCard {
     public boolean isShowNumberModified;
 
     public boolean isEmpowered;
-    /*
-    https://github.com/erasels/TheImmortal/blob/master/theImmortal/src/main/java/theImmortal/patches/cards/HPLossCardsPatches.java
-    https://github.com/erasels/TheImmortal/blob/master/theImmortal/src/main/java/theImmortal/patches/cards/HPCostCardMechanics.java
-    https://github.com/erasels/TheImmortal/blob/master/theImmortal/src/main/java/theImmortal/cards/abstracts/ImmortalCard.java#L164
-    https://github.com/erasels/TheImmortal/blob/master/theImmortal/src/main/java/theImmortal/cards/abstracts/ImmortalCard.java#L335
-     */
 
     public ProdigyCard(CardInfo cardInfo, boolean upgradesDescription) {
         this(ProdigyCharacter.Enums.COLOR_PRODIGY, cardInfo.cardName, cardInfo.cardCost, cardInfo.cardType, cardInfo.cardTarget, cardInfo.cardRarity, upgradesDescription);
@@ -86,21 +93,24 @@ public abstract class ProdigyCard extends CustomCard {
 
         this.upgradesDescription = upgradesDescription;
 
+        this.upgradedMPCost = false;
+
         this.upgradeCost = false;
         this.upgradeDamage = false;
         this.upgradeBlock = false;
         this.upgradeMagic = false;
+        this.upgradeMPCost = false;
 
         this.costUpgrade = cost;
         this.damageUpgrade = 0;
         this.blockUpgrade = 0;
         this.magicUpgrade = 0;
+        this.mpCostUpgrade = 0;
 
         upgradeBurst = false;
         upgradeRetain = false;
         upgradeEthereal = false;
 
-        //TODO: Add mana cost stuff
         isEmpowered = false;
 
         if (cardName.toLowerCase().contains("strike")) {
@@ -121,6 +131,10 @@ public abstract class ProdigyCard extends CustomCard {
 
     public void setMagic(int magic) {
         this.setMagic(magic, 0);
+    }
+
+    public void setMPCost(int mpCost) {
+        this.setMPCost(mpCost, 0);
     }
 
     public void setCostUpgrade(int costUpgrade) {
@@ -153,6 +167,15 @@ public abstract class ProdigyCard extends CustomCard {
         if (magicUpgrade != 0) {
             this.upgradeMagic = true;
             this.magicUpgrade = magicUpgrade;
+        }
+    }
+
+    public void setMPCost(int mpCost, int mpCostUpgrade) {
+        ManaHelper.setBaseMPCost(this, mpCost);
+        ManaHelper.setMPCost(this, mpCost);
+        if (mpCostUpgrade != 0) {
+            this.upgradeMPCost = true;
+            this.mpCostUpgrade = mpCostUpgrade;
         }
     }
 
@@ -248,11 +271,13 @@ public abstract class ProdigyCard extends CustomCard {
             ((ProdigyCard) card).upgradeDamage = this.upgradeDamage;
             ((ProdigyCard) card).upgradeBlock = this.upgradeBlock;
             ((ProdigyCard) card).upgradeMagic = this.upgradeMagic;
+            ((ProdigyCard) card).upgradeMPCost = this.upgradeMPCost;
 
             ((ProdigyCard) card).costUpgrade = this.costUpgrade;
             ((ProdigyCard) card).damageUpgrade = this.damageUpgrade;
             ((ProdigyCard) card).blockUpgrade = this.blockUpgrade;
             ((ProdigyCard) card).magicUpgrade = this.magicUpgrade;
+            ((ProdigyCard) card).mpCostUpgrade = this.mpCostUpgrade;
 
             ((ProdigyCard) card).baseExhaust = this.baseExhaust;
             ((ProdigyCard) card).upgExhaust = this.upgExhaust;
@@ -303,6 +328,9 @@ public abstract class ProdigyCard extends CustomCard {
             if (upgradeMagic)
                 this.upgradeMagicNumber(magicUpgrade);
 
+            if (upgradeMPCost)
+                this.upgradeMPCost(mpCostUpgrade);
+
             if (baseExhaust ^ upgExhaust) //different
                 this.exhaust = upgExhaust;
 
@@ -329,12 +357,15 @@ public abstract class ProdigyCard extends CustomCard {
         }
     }
 
+    public void empoweredUse(AbstractPlayer p, AbstractMonster m) {
+    }
+
     @Override
     public void triggerOnGlowCheck() {
         if (CardCrawlGame.isInARun()) {
             if ((this.hasTag(CardENUMs.BURST) && UC.anonymousCheckBurst())) {
                 glowColor = GOLD_BORDER_GLOW_COLOR;
-            } else if (/*Mana cost check &&*/ isEmpowered) {
+            } else if (ManaHelper.hasEnoughMana(ManaHelper.getMPCost(this)) && isEmpowered) {
                 glowColor = EMPOWER_BORDER_GLOW_COLOR;
             } else {
                 glowColor = BLUE_BORDER_GLOW_COLOR;
@@ -361,12 +392,13 @@ public abstract class ProdigyCard extends CustomCard {
     }
 
     public void onRightClick() {
-        if(isEmpowered) {
+        if (isEmpowered) {
             isEmpowered = false;
         } else {
-            //TODO: Add enough mana check
-            isEmpowered = true;
-            this.superFlash(Color.ROYAL.cpy());
+            if (ManaHelper.hasEnoughMana(ManaHelper.getMPCost(this)) && ManaHelper.getMPCost(this) > -1) {
+                isEmpowered = true;
+                this.superFlash(Color.ROYAL.cpy());
+            }
         }
         UC.p().hand.glowCheck();
     }
@@ -393,5 +425,86 @@ public abstract class ProdigyCard extends CustomCard {
 
     private void applyPowersToSN() {
         this.isShowNumberModified = showNumber != baseShowNumber;
+    }
+
+    @Override
+    public void displayUpgrades() {
+        super.displayUpgrades();
+        if (this.upgradedMPCost) {
+            ManaHelper.setMPCost(this, ManaHelper.getBaseMPCost(this));
+            ManaHelper.setMPCostModified(this, true);
+        }
+    }
+
+    protected void upgradeMPCost(int amount) {
+        ManaHelper.setBaseMPCost(this, ManaHelper.getBaseMPCost(this) + amount);
+        ManaHelper.setMPCost(this, ManaHelper.getBaseMPCost(this));
+        this.upgradedMPCost = true;
+    }
+
+    private static Texture MP_COST_ORB;
+    private static Color renderColor = Color.WHITE.cpy();
+
+    public static void renderMPCost(AbstractCard card, SpriteBatch sb) {
+        float drawX = card.current_x - 256.0F;
+        float drawY = card.current_y - 256.0F;
+
+        if (MP_COST_ORB == null) {
+            MP_COST_ORB = TextureLoader.getTexture(TheProdigy.makeImagePath("512/CardMPCostOrb.png"));
+        }
+        if (ENERGY_COST_MODIFIED_COLOR == null) {
+            getColorConstants();
+        }
+
+        if (!card.isLocked && card.isSeen) {
+            if (ManaHelper.getMPCost(card) > -1) {
+                ProdigyCard.renderHelper(card, sb, renderColor, MP_COST_ORB, drawX, drawY);
+
+                String msg = Integer.toString(ManaHelper.getMPCost(card));
+                Color costColor = Color.WHITE.cpy();
+                if (AbstractDungeon.player != null && AbstractDungeon.player.hand.contains(card)) {
+                    if (ManaHelper.getMPCostModified(card)) {
+                        if (ManaHelper.getMPCost(card) > ManaHelper.getBaseMPCost(card) && ManaHelper.getMPCost(card) > 0) {
+                            costColor = ENERGY_COST_RESTRICTED_COLOR;
+                        } else if (ManaHelper.getMPCost(card) < ManaHelper.getBaseMPCost(card)) {
+                            costColor = ENERGY_COST_MODIFIED_COLOR;
+                        }
+                    }
+                }
+                costColor.a = card.transparency;
+
+                FontHelper.renderRotatedText(sb, getMPCostFont(card), msg, card.current_x,
+                        card.current_y, -132.0F * card.drawScale * Settings.scale,
+                        129.0F * card.drawScale * Settings.scale, card.angle,
+                        true, costColor);
+            }
+        }
+    }
+
+    private static void renderHelper(AbstractCard __instance, SpriteBatch sb, Color color, Texture img, float drawX, float drawY) {
+        sb.setColor(color);
+        sb.draw(img, drawX, drawY, 256.0F, 256.0F, 512.0F, 512.0F, __instance.drawScale * Settings.scale, __instance.drawScale * Settings.scale, __instance.angle, 0, 0, 512, 512, false, false);
+    }
+
+    private static BitmapFont getMPCostFont(AbstractCard card) {
+        FontHelper.cardEnergyFont_L.getData().setScale(card.drawScale * 0.75f);
+        return FontHelper.cardEnergyFont_L;
+    }
+
+    private static Color ENERGY_COST_RESTRICTED_COLOR, ENERGY_COST_MODIFIED_COLOR;
+
+    private static void getColorConstants() {
+        Field f;
+        try {
+            f = AbstractCard.class.getDeclaredField("ENERGY_COST_RESTRICTED_COLOR");
+            f.setAccessible(true);
+            ENERGY_COST_RESTRICTED_COLOR = (Color) f.get(null);
+
+            f = AbstractCard.class.getDeclaredField("ENERGY_COST_MODIFIED_COLOR");
+            f.setAccessible(true);
+            ENERGY_COST_MODIFIED_COLOR = (Color) f.get(null);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 }
