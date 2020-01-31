@@ -6,5 +6,13 @@
       "The first time you attack each enemy, apply #b",
       " #yWeak and #yVulnerable."
     ]
+  },
+  "theProdigy:MagicalPendant": {
+    "NAME": "Magical Pendant",
+    "FLAVOR": "A pendant gifted to you by Kuenbaran when your powers were first lost.",
+    "DESCRIPTIONS": [
+      "Whenever you change your #ystance [REMOVE_SPACE], gain #b",
+      " MP."
+    ]
   }
 }

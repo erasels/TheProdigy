@@ -24,6 +24,7 @@ import org.apache.logging.log4j.Logger;
 import theProdigy.cards.variables.MagicNumber2;
 import theProdigy.cards.variables.ShowNumber;
 import theProdigy.characters.ProdigyCharacter;
+import theProdigy.relics.special.MagicalPendant;
 import theProdigy.relics.special.PurificationRod;
 import theProdigy.util.ManaHelper;
 import theProdigy.util.TextureLoader;
@@ -157,6 +158,7 @@ public class TheProdigy implements
     @Override
     public void receiveEditRelics() {
         BaseMod.addRelicToCustomPool(new PurificationRod(), ProdigyCharacter.Enums.COLOR_PRODIGY);
+        BaseMod.addRelicToCustomPool(new MagicalPendant(), ProdigyCharacter.Enums.COLOR_PRODIGY);
     }
 
     @Override

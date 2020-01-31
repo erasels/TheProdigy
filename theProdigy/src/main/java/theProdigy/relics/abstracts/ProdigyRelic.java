@@ -12,7 +12,7 @@ public abstract class ProdigyRelic extends AbstractRelic {
 
         if (img == null || outlineImg == null) {
             img = TextureLoader.getTexture(TheProdigy.makeRelicPath(imgName));
-            largeImg = TextureLoader.getTexture(TheProdigy.makeRelicPath(imgName));
+            largeImg = TextureLoader.getTexture(TheProdigy.makeRelicPath("big/"+imgName));
             outlineImg = TextureLoader.getTexture(TheProdigy.makeRelicOutlinePath(imgName));
         }
     }
