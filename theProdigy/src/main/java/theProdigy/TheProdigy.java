@@ -12,12 +12,14 @@ import com.evacipated.cardcrawl.mod.stslib.Keyword;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardHelper;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.*;
+import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,8 +28,10 @@ import theProdigy.cards.variables.ShowNumber;
 import theProdigy.characters.ProdigyCharacter;
 import theProdigy.relics.special.MagicalPendant;
 import theProdigy.relics.special.PurificationRod;
+import theProdigy.stances.ProdigyStance;
 import theProdigy.util.ManaHelper;
 import theProdigy.util.TextureLoader;
+import theProdigy.util.UC;
 
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
@@ -42,7 +46,8 @@ public class TheProdigy implements
         EditCharactersSubscriber,
         PostInitializeSubscriber,
         PreStartGameSubscriber,
-        PostBattleSubscriber {
+        PostBattleSubscriber,
+        PostPowerApplySubscriber{
     public static final Logger logger = LogManager.getLogger(TheProdigy.class.getName());
     private static String modID;
 
@@ -153,6 +158,13 @@ public class TheProdigy implements
 
     @Override
     public void receivePreStartGame() {
+    }
+
+    @Override
+    public void receivePostPowerApplySubscriber(AbstractPower p, AbstractCreature target, AbstractCreature source) {
+        if(UC.p().stance instanceof ProdigyStance) {
+            ((ProdigyStance) UC.p().stance).onApplyPower(source, target, p);
+        }
     }
 
     @Override

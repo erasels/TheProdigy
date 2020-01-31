@@ -1,0 +1,9 @@
+{
+  "theProdigy:Elemental": {
+    "NAME": "Elemental",
+    "DESCRIPTION": [
+      "At the start of your turn, gain #b",
+      " MP."
+    ]
+  }
+}
