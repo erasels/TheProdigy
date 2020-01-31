@@ -56,6 +56,12 @@ public abstract class ProdigyCard extends CustomCard {
     public boolean isShowNumberModified;
 
     public boolean isEmpowered;
+    /*
+    https://github.com/erasels/TheImmortal/blob/master/theImmortal/src/main/java/theImmortal/patches/cards/HPLossCardsPatches.java
+    https://github.com/erasels/TheImmortal/blob/master/theImmortal/src/main/java/theImmortal/patches/cards/HPCostCardMechanics.java
+    https://github.com/erasels/TheImmortal/blob/master/theImmortal/src/main/java/theImmortal/cards/abstracts/ImmortalCard.java#L164
+    https://github.com/erasels/TheImmortal/blob/master/theImmortal/src/main/java/theImmortal/cards/abstracts/ImmortalCard.java#L335
+     */
 
     public ProdigyCard(CardInfo cardInfo, boolean upgradesDescription) {
         this(ProdigyCharacter.Enums.COLOR_PRODIGY, cardInfo.cardName, cardInfo.cardCost, cardInfo.cardType, cardInfo.cardTarget, cardInfo.cardRarity, upgradesDescription);
