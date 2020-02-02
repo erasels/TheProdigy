@@ -365,9 +365,10 @@ public abstract class ProdigyCard extends CustomCard {
         if (CardCrawlGame.isInARun()) {
             if ((this.hasTag(CardENUMs.BURST) && UC.anonymousCheckBurst())) {
                 glowColor = GOLD_BORDER_GLOW_COLOR;
-            } else if (ManaHelper.hasEnoughMana(ManaHelper.getMPCost(this)) && isEmpowered) {
+            } else if (isEmpowered && ManaHelper.hasEnoughMana(ManaHelper.getMPCost(this))) {
                 glowColor = EMPOWER_BORDER_GLOW_COLOR;
             } else {
+                isEmpowered = false;
                 glowColor = BLUE_BORDER_GLOW_COLOR;
             }
         }
