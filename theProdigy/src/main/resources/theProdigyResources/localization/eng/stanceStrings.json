@@ -5,5 +5,20 @@
       "At the start of your turn, gain #b",
       " MP."
     ]
+  },
+  "theProdigy:Occult": {
+    "NAME": "Occult",
+    "DESCRIPTION": [
+      "Whenever you apply a debuff to an enemy, deal #b",
+      " damage."
+    ]
+  },
+  "theProdigy:Dimensional": {
+    "NAME": "Dimensional",
+    "DESCRIPTION": [
+      "At the start of your turn,lose #b",
+      " MP. You deal #b",
+      "% more damage with attacks and gain more Block."
+    ]
   }
 }

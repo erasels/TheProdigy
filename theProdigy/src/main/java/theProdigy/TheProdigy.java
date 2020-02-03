@@ -196,6 +196,7 @@ public class TheProdigy implements
         BaseMod.loadCustomStringsFile(OrbStrings.class, getModID() + "Resources/localization/eng/orbStrings.json");
         BaseMod.loadCustomStringsFile(UIStrings.class, getModID() + "Resources/localization/eng/uiStrings.json");
         BaseMod.loadCustomStringsFile(MonsterStrings.class, getModID() + "Resources/localization/eng/monsterStrings.json");
+        BaseMod.loadCustomStringsFile(StanceStrings.class, getModID() + "Resources/localization/eng/stanceStrings.json");
     }
 
     @Override
