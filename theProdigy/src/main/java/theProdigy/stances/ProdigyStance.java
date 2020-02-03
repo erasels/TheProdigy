@@ -1,6 +1,7 @@
 package theProdigy.stances;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -10,6 +11,8 @@ import com.megacrit.cardcrawl.localization.StanceStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.stances.AbstractStance;
 import com.megacrit.cardcrawl.vfx.BorderFlashEffect;
+import theProdigy.util.UC;
+import theProdigy.vfx.combat.unique.BetterStanceAuraEffect;
 
 public abstract class ProdigyStance extends AbstractStance {
     protected static String ENTRANCE_SOUND = "STANCE_ENTER_CALM";
@@ -41,6 +44,14 @@ public abstract class ProdigyStance extends AbstractStance {
     public void onApplyPower(AbstractCreature source, AbstractCreature target, AbstractPower p) { }
     public float modifyBlock(float block) { return block; }
     public void onUseCard(AbstractCard c, UseCardAction UAC) { }
+
+    public void updateAnimation(float c1a, float c1b, float c2a, float c2b, float c3a, float c3b) {
+        this.particleTimer2 -= UC.gt();
+        if (this.particleTimer2 < 0.0F) {
+            this.particleTimer2 = MathUtils.random(0.45F, 0.55F);
+            AbstractDungeon.effectsQueue.add(new BetterStanceAuraEffect(c1a, c1b, c2a, c2b, c3a, c3b));
+        }
+    }
 
     public void onEnterStance() {
         if (sfxId != -1L)
