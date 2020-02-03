@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.vfx.StarBounceEffect;
+import com.megacrit.cardcrawl.vfx.combat.StunStarEffect;
 import theProdigy.TheProdigy;
 import theProdigy.actions.common.ChangeManaAction;
 import theProdigy.util.UC;
@@ -37,7 +38,11 @@ public class DimensionalStance extends ProdigyStance {
             float y1 = UC.p().hb.y;
             float y2 = UC.p().hb.y + UC.p().hb.height;
             for (int i = 0; i < MathUtils.random(4); i++) {
-                AbstractDungeon.effectsQueue.add(new StarBounceEffect(MathUtils.random(x1, x2), MathUtils.random(y1, y2)));
+                if(MathUtils.randomBoolean(0.35f)) {
+                    AbstractDungeon.effectsQueue.add(new StarBounceEffect(MathUtils.random(x1, x2), MathUtils.random(y1, y2)));
+                } else {
+                    AbstractDungeon.effectsQueue.add(new StunStarEffect(MathUtils.random(x1, x2), MathUtils.random(y1, y2)));
+                }
             }
             particleTimer = EFFECT_INTERVAL;
         }
