@@ -10,7 +10,6 @@ import com.megacrit.cardcrawl.vfx.stance.CalmParticleEffect;
 import theProdigy.TheProdigy;
 import theProdigy.actions.common.ChangeManaAction;
 import theProdigy.util.UC;
-import theProdigy.vfx.combat.unique.BetterStanceAuraEffect;
 import theProdigy.vfx.combat.unique.FlameSlingEffect;
 
 public class ElementalStance extends ProdigyStance {
@@ -71,12 +70,8 @@ public class ElementalStance extends ProdigyStance {
             effectCooldown -= UC.gt();
         }
 
-        this.particleTimer2 -= UC.gt();
-        if (this.particleTimer2 < 0.0F) {
-            this.particleTimer2 = MathUtils.random(0.45F, 0.55F);
-            float tmp = MathUtils.random(0.75f, 1f);
-            AbstractDungeon.effectsQueue.add(new BetterStanceAuraEffect(tmp, tmp, tmp));
-        }
+        float tmp = MathUtils.random(0.75f, 1f);
+        super.updateAnimation(tmp, tmp, tmp);
     }
 
     //Maybe change to mana gain on card played

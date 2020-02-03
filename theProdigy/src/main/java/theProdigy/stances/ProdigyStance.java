@@ -46,10 +46,14 @@ public abstract class ProdigyStance extends AbstractStance {
     public void onUseCard(AbstractCard c, UseCardAction UAC) { }
 
     public void updateAnimation(float c1a, float c1b, float c2a, float c2b, float c3a, float c3b) {
+        updateAnimation(MathUtils.random(c1a, c1b), MathUtils.random(c2a, c2b), MathUtils.random(c3a, c3b));
+    }
+
+    public void updateAnimation(float c1, float c2, float c3) {
         this.particleTimer2 -= UC.gt();
         if (this.particleTimer2 < 0.0F) {
             this.particleTimer2 = MathUtils.random(0.45F, 0.55F);
-            AbstractDungeon.effectsQueue.add(new BetterStanceAuraEffect(c1a, c1b, c2a, c2b, c3a, c3b));
+            AbstractDungeon.effectsQueue.add(new BetterStanceAuraEffect(c1, c2, c3));
         }
     }
 
