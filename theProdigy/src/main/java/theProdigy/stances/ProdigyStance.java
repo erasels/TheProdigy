@@ -1,9 +1,8 @@
 package theProdigy.stances;
 
 import com.badlogic.gdx.graphics.Color;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
-import com.evacipated.cardcrawl.modthespire.lib.SpireReturn;
+import com.megacrit.cardcrawl.actions.utility.UseCardAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -41,6 +40,7 @@ public abstract class ProdigyStance extends AbstractStance {
 
     public void onApplyPower(AbstractCreature source, AbstractCreature target, AbstractPower p) { }
     public float modifyBlock(float block) { return block; }
+    public void onUseCard(AbstractCard c, UseCardAction UAC) { }
 
     public void onEnterStance() {
         if (sfxId != -1L)
@@ -58,17 +58,6 @@ public abstract class ProdigyStance extends AbstractStance {
         if (sfxId != -1L) {
             CardCrawlGame.sound.stop(LOOP_SOUND, sfxId);
             sfxId = -1L;
-        }
-    }
-
-    @SpirePatch(clz = AbstractStance.class, method = "getStanceFromName")
-    public static class AddStanceFromID {
-        @SpirePrefixPatch
-        public static SpireReturn<AbstractStance> patch(String id) {
-            if (id.equals(ElementalStance.ID)) {
-                return SpireReturn.Return(new ElementalStance());
-            }
-            return SpireReturn.Continue();
         }
     }
 }

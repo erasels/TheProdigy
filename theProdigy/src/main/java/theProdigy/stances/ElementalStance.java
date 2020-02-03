@@ -20,6 +20,7 @@ public class ElementalStance extends ProdigyStance {
 
     //TODO: Add frost/Lightning/fire particles as stance effect
 
+    //Maybe change to mana gain on card played
     @Override
     public void atStartOfTurn() {
         UC.atb(new ChangeManaAction(MP_GAIN));
