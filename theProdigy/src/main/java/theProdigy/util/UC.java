@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.*;
+import com.megacrit.cardcrawl.actions.watcher.ChangeStanceAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -18,6 +19,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.stances.AbstractStance;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import theProdigy.actions.utility.DamageAllAction;
 import theProdigy.cards.abstracts.ProdigyCard;
@@ -157,6 +159,14 @@ public class UC {
 
     public static void doDraw(int number) {
         atb(new DrawCardAction(p(), number));
+    }
+
+    public static void changeStance(AbstractStance stance, boolean top) {
+        if(top) {
+            att(new ChangeStanceAction(stance));
+        } else {
+            atb(new ChangeStanceAction(stance));
+        }
     }
 
     public static void generalPowerLogic(AbstractPower p) {

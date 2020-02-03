@@ -15,7 +15,10 @@ import theProdigy.actions.common.ChangeManaAction;
 import theProdigy.cards.abstracts.ProdigyCard;
 import theProdigy.universal.CardMPCostHooks;
 import theProdigy.util.ManaHelper;
+import theProdigy.util.RenderMPCostHelper;
 import theProdigy.util.UC;
+
+import java.lang.reflect.Field;
 
 public class MpCostCardsPatches {
     @SpirePatch(clz = AbstractCard.class, method = SpirePatch.CLASS)
@@ -82,7 +85,7 @@ public class MpCostCardsPatches {
             if ((!(c instanceof ProdigyCard) || ((ProdigyCard) c).isEmpowered) && mpcost > 0) {
                 UC.att(new ChangeManaAction(-mpcost));
 
-                if(c instanceof ProdigyCard) {
+                if (c instanceof ProdigyCard) {
                     ((ProdigyCard) c).empoweredUse(__instance, m);
                 }
 
@@ -112,18 +115,29 @@ public class MpCostCardsPatches {
     @SpirePatch(clz = AbstractCard.class, method = "renderEnergy", paramtypez = {SpriteBatch.class})
     public static class MPCardRenderInLibraryPatch {
         public static void Postfix(AbstractCard __instance, SpriteBatch sb) {
-            ProdigyCard.renderMPCost(__instance, sb);
+            RenderMPCostHelper.renderMPCost(__instance, sb);
         }
     }
 
     //TODO: Make seperate render that actually works here
+    private static Field cardField;
+
     @SpirePatch(clz = SingleCardViewPopup.class, method = "renderCost", paramtypez = {SpriteBatch.class})
     public static class MPCardRenderInSingleCardPatch {
-        public static void Postfix(SingleCardViewPopup __instance, SpriteBatch sb, AbstractCard ___card) {
-            if (ManaHelper.hasMana()) {
-                ProdigyCard.renderMPCost(___card, sb);
-            }
+        public static void Postfix(SingleCardViewPopup __instance, SpriteBatch sb) {
+            try {
+                if (cardField == null) {
+                    cardField = __instance.getClass().getDeclaredField("card");
+                    cardField.setAccessible(true);
+                }
 
+                AbstractCard c = (AbstractCard) cardField.get(__instance);
+                if (ManaHelper.hasMana()) {
+                    RenderMPCostHelper.renderMPCostInSingle(c, sb, __instance);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }
