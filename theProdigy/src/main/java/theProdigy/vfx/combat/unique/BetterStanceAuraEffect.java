@@ -13,4 +13,9 @@ public class BetterStanceAuraEffect extends StanceAuraEffect {
         super("");
         color = new Color(c1, c2, c3, 0);
     }
+
+    public BetterStanceAuraEffect(Color c) {
+        super("");
+        color = c.cpy();
+    }
 }

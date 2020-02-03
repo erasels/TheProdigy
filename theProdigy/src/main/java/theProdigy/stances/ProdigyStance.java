@@ -56,6 +56,14 @@ public abstract class ProdigyStance extends AbstractStance {
             AbstractDungeon.effectsQueue.add(new BetterStanceAuraEffect(c1, c2, c3));
         }
     }
+    public void updateAnimation(Color c) {
+        this.particleTimer2 -= UC.gt();
+        if (this.particleTimer2 < 0.0F) {
+            this.particleTimer2 = MathUtils.random(0.45F, 0.55F);
+            AbstractDungeon.effectsQueue.add(new BetterStanceAuraEffect(c));
+        }
+    }
+
 
     public void onEnterStance() {
         if (sfxId != -1L)
