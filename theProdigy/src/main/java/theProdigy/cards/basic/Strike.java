@@ -29,6 +29,7 @@ public class Strike extends ProdigyCard {
         super(cardInfo, false);
 
         setDamage(DAMAGE, UPG_DAMAGE);
+        //setMPCost(5);
 
         tags.add(CardTags.STARTER_STRIKE);
         tags.add(CardTags.STRIKE);
@@ -38,6 +39,10 @@ public class Strike extends ProdigyCard {
     public void use(AbstractPlayer p, AbstractMonster m) {
         UC.doAnim(RunAnimationEffect.ANIS.GRAB);
         UC.doDmg(m, this.damage, MathUtils.randomBoolean() ? AbstractGameAction.AttackEffect.SLASH_VERTICAL : AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+    }
 
+    @Override
+    public void empoweredUse(AbstractPlayer p, AbstractMonster m) {
+        UC.doDmg(m, this.damage + 12, MathUtils.randomBoolean() ? AbstractGameAction.AttackEffect.POISON : AbstractGameAction.AttackEffect.FIRE);
     }
 }
