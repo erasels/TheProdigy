@@ -1,15 +1,14 @@
 package theProdigy.cards.basic;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.actions.common.AttackDamageRandomEnemyAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import theProdigy.actions.utility.AlwaysDamageRandomEnemyAction;
 import theProdigy.cards.abstracts.ProdigyCard;
 import theProdigy.util.CardInfo;
 
 import static theProdigy.TheProdigy.makeID;
-import static theProdigy.util.UC.*;
+import static theProdigy.util.UC.atb;
 
 public class UnrulySpark extends ProdigyCard {
     private final static CardInfo cardInfo = new CardInfo(
@@ -39,7 +38,7 @@ public class UnrulySpark extends ProdigyCard {
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         for (int i = 0; i < magicNumber2 + (isEmpowered?magicNumber:0); i++) {
-            atb(new AlwaysDamageRandomEnemyAction(new DamageInfo(p, damage), AbstractGameAction.AttackEffect.LIGHTNING));
+            atb(new AttackDamageRandomEnemyAction(this, AbstractGameAction.AttackEffect.LIGHTNING));
         }
     }
 }
