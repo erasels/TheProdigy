@@ -26,6 +26,8 @@ import theProdigy.animation.BetterSpriterAnimation;
 import theProdigy.animation.PlayerListener;
 import theProdigy.cards.basic.Defend;
 import theProdigy.cards.basic.Strike;
+import theProdigy.cards.basic.Teleport;
+import theProdigy.cards.basic.UnrulySpark;
 import theProdigy.patches.mechanics.ManaPatches;
 import theProdigy.ui.MyEnergyOrb;
 
@@ -157,6 +159,8 @@ public class ProdigyCharacter extends CustomPlayer {
         for(int i = 0; i<4;i++) {
             retVal.add(Defend.ID);
         }
+        retVal.add(Teleport.ID);
+        retVal.add(UnrulySpark.ID);
         return retVal;
     }
 
