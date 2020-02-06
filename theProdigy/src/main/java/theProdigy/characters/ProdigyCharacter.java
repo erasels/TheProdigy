@@ -19,6 +19,7 @@ import com.megacrit.cardcrawl.localization.CharacterStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.PrismaticShard;
 import com.megacrit.cardcrawl.screens.CharSelectInfo;
+import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import theProdigy.TheProdigy;
@@ -29,6 +30,7 @@ import theProdigy.cards.basic.Strike;
 import theProdigy.cards.basic.Teleport;
 import theProdigy.cards.basic.UnrulySpark;
 import theProdigy.patches.mechanics.ManaPatches;
+import theProdigy.relics.special.MagicalPendant;
 import theProdigy.ui.MyEnergyOrb;
 
 import java.util.ArrayList;
@@ -167,7 +169,8 @@ public class ProdigyCharacter extends CustomPlayer {
     public ArrayList<String> getStartingRelics() {
         ArrayList<String> retVal = new ArrayList<>();
         retVal.add(PrismaticShard.ID);
-        //UnlockTracker.markRelicAsSeen(PurificationRod.ID);
+        retVal.add(MagicalPendant.ID);
+        UnlockTracker.markRelicAsSeen(MagicalPendant.ID);
         return retVal;
     }
 
