@@ -35,7 +35,7 @@ public class PlasmaCutter extends ProdigyCard {
     private static final int MPCOST = 4;
 
     public PlasmaCutter() {
-        super(cardInfo, false);
+        super(cardInfo, false, AlignedStance.OCCULT);
 
         setDamage(DAMAGE, UPG_DAMAGE);
         setMagic(MAGIC, UPG_MAGIC);
