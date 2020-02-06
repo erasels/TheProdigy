@@ -56,7 +56,9 @@ public class PlasmaCutter extends ProdigyCard {
     @Override
     public void empoweredUse(AbstractPlayer p, AbstractMonster m) {
         for(AbstractMonster mon : AbstractDungeon.getMonsters().monsters) {
-            doPow(mon, new VulnerablePower(mon, magicNumber, false));
+            if(!mon.isDeadOrEscaped()) {
+                doPow(mon, new VulnerablePower(mon, magicNumber, false));
+            }
         }
     }
 }
