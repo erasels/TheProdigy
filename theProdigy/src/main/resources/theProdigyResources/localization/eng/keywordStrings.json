@@ -8,12 +8,11 @@
     "DESCRIPTION": "When right-clicked MP cost is spent when played and the following effect is activated."
   },
   {
-    "PROPER_NAME": "Charged",
+    "PROPER_NAME": "[MP_Icon]",
     "NAMES": [
-      "charged",
-      "charged:"
+      "[mp_icon]"
     ],
-    "DESCRIPTION": "When right-clicked MP cost is spent when played and the following effect is activated."
+    "DESCRIPTION": "Right-click to toggle: MP cost is spent when played and the following effect is activated."
   },
   {
     "PROPER_NAME": "Burst",

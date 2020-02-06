@@ -9,11 +9,11 @@
   },
   "theProdigy:Teleport": {
     "NAME": "Teleport",
-    "DESCRIPTION": "Gain !B! Block. NL theprodigy:Charged: Gain !B! Block."
+    "DESCRIPTION": "Gain !B! Block. NL [MP_Icon] : Gain !B! Block."
   },
   "theProdigy:UnrulySpark": {
     "NAME": "Unruly Spark",
-    "DESCRIPTION": "Deal !D! damage to a random enemy !theProdigy:M2! times. NL theprodigy:Charged: !M! additional time.",
-    "UPGRADE_DESCRIPTION": "Deal !D! damage to a random enemy !theProdigy:M2! times. NL theprodigy:Charged: !M! additional times."
+    "DESCRIPTION": "Deal !D! damage to a random enemy !theProdigy:M2! times. NL [MP_Icon] : !M! additional time.",
+    "UPGRADE_DESCRIPTION": "Deal !D! damage to a random enemy !theProdigy:M2! times. NL [MP_Icon] : !M! additional times."
   }
 }
