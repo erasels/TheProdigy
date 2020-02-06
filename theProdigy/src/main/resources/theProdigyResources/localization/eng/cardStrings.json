@@ -15,5 +15,9 @@
     "NAME": "Unruly Spark",
     "DESCRIPTION": "Deal !D! damage to a random enemy !theProdigy:M2! times. NL [MP_Icon] : !M! additional time.",
     "UPGRADE_DESCRIPTION": "Deal !D! damage to a random enemy !theProdigy:M2! times. NL [MP_Icon] : !M! additional times."
+  },
+  "theProdigy:PlasmaCutter": {
+    "NAME": "Plasma Cutter",
+    "DESCRIPTION": "Deal !D! damage to ALL enemies !theProdigy:M2! times. NL [MP_Icon] : Apply !M! Vulnerable."
   }
 }
