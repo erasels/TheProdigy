@@ -19,5 +19,15 @@
   "theProdigy:PlasmaCutter": {
     "NAME": "Plasma Cutter",
     "DESCRIPTION": "Deal !D! damage to ALL enemies !theProdigy:M2! times. NL [MP_Icon] : Apply !M! Vulnerable."
+  },
+  "theProdigy:Gust": {
+    "NAME": "Gust",
+    "DESCRIPTION": "Deal !D! damage. NL Draw !M! cards. NL Discard !theProdigy:M2! card at random.",
+    "UPGRADE_DESCRIPTION": "Deal !D! damage. NL Draw !M! cards. NL Discard !theProdigy:M2! card."
+  },
+  "theProdigy:Reinforce": {
+    "NAME": "Reinforce",
+    "DESCRIPTION": "Gain !B! Block. NL [MP_Icon] : Gain [E] .",
+    "UPGRADE_DESCRIPTION": "Gain !B! Block. NL [MP_Icon] : Gain [E] [E] ."
   }
 }
