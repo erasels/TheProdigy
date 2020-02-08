@@ -4,10 +4,12 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.stances.NeutralStance;
 import com.megacrit.cardcrawl.vfx.StarBounceEffect;
 import com.megacrit.cardcrawl.vfx.combat.StunStarEffect;
 import theProdigy.TheProdigy;
 import theProdigy.actions.common.ChangeManaAction;
+import theProdigy.util.ManaHelper;
 import theProdigy.util.UC;
 
 public class DimensionalStance extends ProdigyStance {
@@ -75,6 +77,10 @@ public class DimensionalStance extends ProdigyStance {
     //Maybe change to mana gain on card played
     @Override
     public void atStartOfTurn() {
+        int tmp = ManaHelper.getMP() - MP_LOSS;
         UC.atb(new ChangeManaAction(-MP_LOSS));
+        if(tmp < 0) {
+            UC.changeStance(new NeutralStance(), false);
+        }
     }
 }
