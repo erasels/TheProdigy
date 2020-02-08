@@ -77,10 +77,10 @@ public class DimensionalStance extends ProdigyStance {
     //Maybe change to mana gain on card played
     @Override
     public void atStartOfTurn() {
-        int tmp = ManaHelper.getMP() - MP_LOSS;
-        UC.atb(new ChangeManaAction(-MP_LOSS));
-        if(tmp < 0) {
+        if((ManaHelper.getMP() - MP_LOSS) < 0) {
             UC.changeStance(new NeutralStance(), false);
+            return;
         }
+        UC.atb(new ChangeManaAction(-MP_LOSS));
     }
 }
